@@ -1,11 +1,10 @@
-use eframe::egui;
+mod servers;
+mod server;
 
-fn main() -> eframe::Result<()> {
-    let options = eframe::NativeOptions::default();
+#[tokio::main]
+async fn main() {
+    println!("Nordiumm Monitor");
 
-    eframe::ruin_native(
-        "Nordiumm Monitor",
-        options,
-        Box::new(|_cc| Ok(Box::new(NordiummMonitor::default()))),
-    )
+    let status = servers::agoniasmp::check().await;
+    println!("{:?}", status);
 }
